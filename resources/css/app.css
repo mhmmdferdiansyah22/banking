@@ -9,7 +9,7 @@
 
 body {
   min-height: 100%;
-  background: #e3f2fd;
+  background: #ffffff;
 }
 
 body::-webkit-scrollbar {
@@ -24,7 +24,7 @@ nav {
   width: 100%;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: #1e3a8a;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
@@ -36,14 +36,14 @@ nav .logo {
 }
 
 .logo .menu-icon {
-  color: #333;
+  color: #ffffff;
   font-size: 24px;
   margin-right: 14px;
   cursor: pointer;
 }
 
 .logo .logo-name {
-  color: #333;
+  color: #ffffff;
   font-size: 22px;
   font-weight: 500;
 }
@@ -57,7 +57,7 @@ nav .sidebar {
   /* Supaya tingginya tidak melebihi navbar */
   width: 260px;
   padding: 20px 0;
-  background-color: #fff;
+  background-color: #f4f4f4;
   box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.4s ease;
 }

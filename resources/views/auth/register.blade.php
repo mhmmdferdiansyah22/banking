@@ -181,7 +181,8 @@
                                             class="delete-form">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm delete-btn" data-user="{{ $user->name }}">
+                                            <button type="submit" class="btn btn-danger btn-sm delete-btn"
+                                                data-user="{{ $user->name }}">
                                                 Delete
                                             </button>
                                         </form>
@@ -189,6 +190,18 @@
                                             Edit
                                         </a>
                                     </div>
+                                    @if (session('error'))
+                                        <script>
+                                            Swal.fire({
+                                                title: "⚠️ Gagal!",
+                                                text: "{{ session('error') }}",
+                                                icon: "error",
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                showConfirmButton: false
+                                            });
+                                        </script>
+                                    @endif
                                     <script>
                                         document.addEventListener("DOMContentLoaded", function() {
                                             document.querySelectorAll(".delete-btn").forEach(button => {
@@ -209,7 +222,7 @@
                                                     }).then((result) => {
                                                         if (result.isConfirmed) {
                                                             this.closest("form")
-                                                        .submit(); // Kirim form hanya jika dikonfirmasi
+                                                                .submit(); // Kirim form hanya jika dikonfirmasi
                                                         }
                                                     });
                                                 });

@@ -122,7 +122,7 @@
 
                         <div class="visa-card rounded-3 p-4 text-white"
                             style="background: linear-gradient(135deg, #172554, #1e40af); width: 100%; height: 200px;">
-                            <div class="fs-5 text-end fst-italic fw-bold">Veenue1st</div>
+                            <div class="fs-5 text-end fst-italic fw-bold">Avobank</div>
                             <div class="card-number mt-4" style="letter-spacing: 2px; font-size: 18px;">
                                 {{ $account_number ?? '**** **** **** ****' }}
                             </div>

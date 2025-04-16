@@ -18,7 +18,7 @@
     <nav>
       <div class="logo">
         <i class="bx bx-menu menu-icon"></i>
-        <span class="logo-name">CodingLab</span>
+        <span class="logo-name text-end fst-italic fw-bold">AvoBank</span>
       </div>
       <div class="sidebar">
         <div class="sidebar-content">

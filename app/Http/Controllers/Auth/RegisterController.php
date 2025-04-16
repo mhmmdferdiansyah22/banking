@@ -28,19 +28,19 @@ class RegisterController extends Controller
     public function showRegistrationForm(Request $request)
     {
         $users = User::with('role')
-        ->whereNotIn('name', ['student', 'bank', 'admin']) 
-        ->paginate(6);
+            ->whereNotIn('name', ['student', 'bank', 'admin'])
+            ->paginate(6);
         $roles = Role::all(); // Tambahkan ini
-        return view('auth.register', compact('users', 'roles')); 
+        return view('auth.register', compact('users', 'roles'));
     }
-    
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role_id' => ['required', 'integer','exists:roles,id'],
+            'role_id' => ['required', 'integer', 'exists:roles,id'],
         ]);
     }
     protected function create(array $data)
@@ -50,7 +50,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'account_number' => in_array($data['role_id'], [1, 2]) ? null : User::generateRandomNumber(),
-            'role_id'=> $data['role_id'],
+            'role_id' => $data['role_id'],
         ]);
     }
 
@@ -58,15 +58,15 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        $this->create ($request->all());
+        $this->create($request->all());
 
-        return redirect()->back()->with('success','created succesful');
+        return redirect()->back()->with('success', 'created succesful');
     }
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::all(); 
+        $roles = Role::all();
 
         return view('auth.edit', compact('user', 'roles'));
     }
@@ -78,7 +78,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
-            'role_id' => ['required','integer', 'exists:roles,id'],
+            'role_id' => ['required', 'integer', 'exists:roles,id'],
             'password' => ['nullable', 'string', 'min:8'],
         ]);
 
@@ -100,6 +100,11 @@ class RegisterController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        // Cek apakah yang sedang login adalah role 'bank'
+        // dan user yang akan dihapus juga memiliki role 'bank'
+        if (auth()->user()->role->name === 'bank' && $user->role->name === 'bank') {
+            return redirect()->back()->with('error', '❌ Anda tidak diizinkan menghapus user dengan role Bank.');
+        }
         $user->delete();
 
         return redirect()->back()->with('success', 'User deleted successfully!');
